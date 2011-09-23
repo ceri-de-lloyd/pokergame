@@ -38,8 +38,10 @@ class Suit {
   }
   Suit(const std::string& str) : index(determine_index(str)) {}
 
-  bool equals(const Suit s) const { return s.index == index; }
-  std::string toString() const { return suit_names(index); }
+  friend bool operator ==(const Suit lhs, const Suit rhs) {
+    return lhs.index == rhs.index;
+  }
+  operator std::string { return suit_names(index); }
 
   index_type determine_index(const std::string& str) const {
     for (index_type i = 0; i < num_suites; ++i)
