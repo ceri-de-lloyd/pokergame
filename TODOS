@@ -1,0 +1,18 @@
+Oliver Kullmann, 23/9/2011 (Swansea)
+-------------------------------------------------
+
+Dissertation:
+ - needs proper structure of a technical report:
+   - proper numbering of all elements
+   - proper cross references within the text
+   - precise definitions of all terms and forms of poker etc.
+   - bibliography at the end!
+
+
+Code:
+
+Where are the Doxygen comments?
+Makefile needed.
+
+Better "*.hpp" than "*.h".
+
