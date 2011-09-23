@@ -21,3 +21,5 @@ No functions toString are needed, but conversion functions.
 No functions equal are needed, but the ==-operator (if needed!).
 
 No using-directives in header-files (just remove "using namespace std;").
+
+No tab-symbols.
