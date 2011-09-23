@@ -1,46 +1,51 @@
+#ifndef SUIT_Kneo
+#define SUIT_Kneo
+
 #include <cassert>
 #include <string>
-
+#include <stdexcept>
 
 class Suit {
   // Wrapper class around suites as integer indices.
-  
-  static const int num_suites = 4;
-  static const int clubs = 0;
-  static const int spades = 1;
-  static const int hearts = 2;
-  static const int diamonds = 3;
-  static const char suit_names[] = {"clubs", "spades", "hearts", "diamonds" };
+ public :
+  typedef int index_type;
+
+ private :
+  static const index_type num_suites = 4;
+  static const index_type clubs = 0;
+  static const index_type spades = 1;
+  static const index_type hearts = 2;
+  static const index_type diamonds = 3;
+
+  static std::string suit_names(const index_type i) {
+    assert(i >= 0);
+    assert(i < num_suites);
+    switch (i) {
+    case clubs : return "clubs";
+    case spades : return "spades";
+    case hearts : return "hearts";
+    case diamonds : return "diamonds";
+    }
+  }
 
  public :
 
-  const int index;
+  const index_type index;
 
-  Suit(const int i) : index(i) {
+  Suit(const index_type i) : index(i) {
     assert(i >= 0);
     assert(i < num_suites);
   }
-    Suit(const std::string str) : index(determine_index(str)) {}
+  Suit(const std::string& str) : index(determine_index(str)) {}
 
-      bool equals(const Suit s) const {
-	return s.index == index;
-      }
+  bool equals(const Suit s) const { return s.index == index; }
+  std::string toString() const { return suit_names(index); }
 
-      char toString() const {
-    char result = "";
-    for (int i = 1; i < suit_names; ++i) {
-      for (int j = i+1; j <= suit_names; ++j)
-        result += get(i,j) + " ";
-      result += "\n";
-    }
-    //return result;
-    return (suit_names[index]);
-  }
-  
-  int determine_index(const char str) const {
-    for (int i = 0; i < num_suites; ++i)
-      if (str.equals(suit_names[i]))
-        return i;
-    throw new RuntimeException("Does not represent a suit: " + str);
+  index_type determine_index(const std::string& str) const {
+    for (index_type i = 0; i < num_suites; ++i)
+      if (str == suit_names(i)) return i;
+    throw std::domain_error("Does not represent a suit: " + str);
   }
 };
+
+#endif
