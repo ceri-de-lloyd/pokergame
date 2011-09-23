@@ -1,11 +1,5 @@
-#include <fstream>
-#include <iostream>
+#include <cassert>
 #include <string>
-#include <cctype>
-#include <cstdlib>
-#include <cctype>
-#include <cmath>
-#include <stdio.h>
 
 
 class Suit {
