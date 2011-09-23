@@ -14,22 +14,19 @@ class Suit {
 
  public :
 
-  int index;
-  
-  Suit( int i) {
+  const int index;
+
+  Suit(const int i) : index(i) {
     assert(i >= 0);
     assert(i < num_suites);
-    index = i;
   }
-  Suit(std::string str) {
-    index = determine_index(str);
-  }
+    Suit(const std::string str) : index(determine_index(str)) {}
 
-  bool equals(Suit s) {
-    return s.index == index;
-  }
+      bool equals(const Suit s) const {
+	return s.index == index;
+      }
 
-  char toString() {
+      char toString() const {
     char result = "";
     for (int i = 1; i < suit_names; ++i) {
       for (int j = i+1; j <= suit_names; ++j)
@@ -40,7 +37,7 @@ class Suit {
     return (suit_names[index]);
   }
   
-  int determine_index(char str) {
+  int determine_index(const char str) const {
     for (int i = 0; i < num_suites; ++i)
       if (str.equals(suit_names[i]))
         return i;
