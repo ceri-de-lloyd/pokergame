@@ -1,54 +1,53 @@
-#include <fstream>
-#include <iostream>
-#include <string>
-#include <cctype>
-#include <cstdlib>
-#include <cctype>
-#include <cmath>
-#include <stdio.h>
+#ifndef SUIT_Kneo
+#define SUIT_Kneo
 
+#include <cassert>
+#include <string>
+#include <stdexcept>
 
 class Suit {
-
   // Wrapper class around suites as integer indices.
+ public :
+  typedef int index_type;
+  static const index_type num_suites = 4;
+  static const index_type clubs = 0;
+  static const index_type spades = 1;
+  static const index_type hearts = 2;
+  static const index_type diamonds = 3;
 
-static const int num_suites = 4;
-static const int clubs = 0;
-static const int spades = 1;
-static const int hearts = 2;
-static const int diamonds = 3;
-static const char suit_names[] = {"clubs", "spades", "hearts", "diamonds" };
-
-public: int index;
-
-public: Suit( int i) {
+ private :
+  static std::string suit_names(const index_type i) {
     assert(i >= 0);
     assert(i < num_suites);
-    index = i;
-  }
-public: Suit(std::string str) {
-    index = determine_index(str);
-  }
-
-public: bool:: equals(Suit s) {
-    return s.index == index;
-  }
-
-char:: toString() {
-	char result = "";
-    for (int i = 1; i < suit_names; ++i) {
-      for (int j = i+1; j <= suit_names; ++j)
-        result += get(i,j) + " ";
-      result += "\n";
+    switch (i) {
+    case clubs : return "clubs";
+    case spades : return "spades";
+    case hearts : return "hearts";
+    case diamonds : return "diamonds";
     }
-    //return result;
-    return (suit_names[index]);
-}
-
-public: int determine_index(char str) {
-    for (int i = 0; i < num_suites; ++i)
-      if (str.equals(suit_names[i]))
-        return i;
-    throw new RuntimeException("Does not represent a suit: " + str);
   }
-}
+  index_type determine_index(const std::string& str) const {
+    for (index_type i = 0; i < num_suites; ++i)
+      if (str == suit_names(i)) return i;
+    throw std::domain_error("Does not represent a suit: " + str);
+  }
+
+ public :
+
+  const index_type index;
+
+  Suit(const index_type i) : index(i) {
+    assert(i >= 0);
+    assert(i < num_suites);
+  }
+  //! this constructor throws std::domain_error
+  Suit(const std::string& str) : index(determine_index(str)) {}
+
+  friend bool operator ==(const Suit lhs, const Suit rhs) {
+    return lhs.index == rhs.index;
+  }
+  operator std::string { return suit_names(index); }
+
+};
+
+#endif

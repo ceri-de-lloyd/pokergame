@@ -17,7 +17,7 @@
 #include "HandRank.h"
 #include "TwoPlayers.h"
 #include "Tournament.h"
-#include "Strategy.h
+#include "Strategy.h"
 #include "Storage.h"
 using namespace std;
 
